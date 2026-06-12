@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damaris Net | Internet Cepat & Stabil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Tema Warna */
+            --bg-main: #f0f8ff; 
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --primary-blue: #0056b3; 
+            --red-net: #e11d48; 
+            --white: #ffffff;
+            --shadow: rgba(0, 86, 179, 0.15);
+            
+            /* Warna Paket */
+            --pkg-hemat: linear-gradient(135deg, #4ade80, #16a34a); 
+            --pkg-silver: linear-gradient(135deg, #93c5fd, #3b82f6); 
+            --pkg-gold: linear-gradient(135deg, #fde047, #eab308); 
+            --pkg-smart: linear-gradient(135deg, #fdba74, #ea580c); 
+            --pkg-super: linear-gradient(135deg, #c084fc, #7e22ce); 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at top right, #dbeafe, transparent 40%),
+                              radial-gradient(circle at bottom left, #e0f2fe, transparent 40%);
+        }
+
+        /* --- POP-UP MODAL PAMFLET --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.75); z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+        .modal-content { position: relative; max-width: 90%; max-height: 90vh; animation: zoomIn 0.4s ease; }
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-content img { max-width: 100%; max-height: 85vh; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: block; }
+        .close-btn {
+            position: absolute; top: -15px; right: -15px; background-color: var(--red-net); color: white;
+            width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; font-weight: bold;
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 3px solid white; transition: 0.2s; z-index: 10000;
+        }
+        .close-btn:hover { background-color: #be123c; transform: scale(1.1); }
+
+        /* --- NAVBAR & LOGO --- */
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px var(--shadow); 
+            padding: 8px 0; 
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        
+        .brand { display: flex; flex-direction: column; align-items: center; cursor: pointer; z-index: 1002; }
+        .logo-icon { color: var(--red-net); font-size: 1.1rem; margin-bottom: -3px; } 
+        .brand-name { font-size: 1.4rem; font-weight: 800; letter-spacing: -1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); } 
+        .brand-name .damaris { color: var(--primary-blue); }
+        .brand-name .net { color: var(--red-net); }
+        .brand-tagline { font-size: 0.6rem; color: var(--text-dark); font-weight: 600; letter-spacing: 1px; margin-top: -3px; }
+
+        .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; } 
+        .nav-links a { color: var(--text-gray); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: color 0.3s; cursor: pointer; } 
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-blue); }
+        
+        .btn-action {
+            background: var(--pkg-hemat); color: var(--white) !important; 
+            padding: 8px 18px; 
+            border-radius: 50px; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4); transition: transform 0.3s;
+        }
+        .btn-action:hover { transform: translateY(-3px); }
+        .menu-toggle { display: none; font-size: 1.5rem; color: var(--primary-blue); cursor: pointer; z-index: 1002; }
+
+        /* --- HALAMAN (SLIDES) --- */
+        main { padding-top: 85px; flex: 1; padding-bottom: 50px; } 
+        .slide { display: none; animation: fadeIn 0.5s ease; }
+        .slide.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-size: 2.2rem; color: var(--primary-blue); font-weight: 800; }
+        .section-header p { color: var(--text-gray); font-size: 1rem; }
+        .card-box { background: var(--white); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px var(--shadow); }
+
+        /* --- BERANDA (HOME) --- */
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .hero-text h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+        .hero-text h1 span { color: var(--red-net); }
+        .hero-text p {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .features-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 35px;
+        }
+        .feat-item {
+            background: var(--white); padding: 12px 15px; border-radius: 12px;
+            font-weight: 600; font-size: 0.85rem; color: var(--text-dark);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; align-items: center;
+            gap: 10px; border-left: 4px solid var(--primary-blue);
+        }
+        .feat-item i { color: #16a34a; font-size: 1.1rem; }
+        
+        .hero-image { position: relative; }
+        .hero-image img {
+            width: 100%; border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- LAYANAN & HARGA --- */
+        .pricing-list { display: flex; flex-direction: column; gap: 20px; max-width: 900px; margin: 0 auto; }
+        .price-row {
+            display: flex; align-items: center; justify-content: space-between; background: var(--white);
+            border-radius: 15px; padding: 20px 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s; border: 2px solid transparent; cursor: pointer;
+        }
+        .price-row:hover { transform: translateX(10px); }
+        .price-icon-box {
+            width: 70px; height: 70px; border-radius: 15px; display: flex; justify-content: center;
+            align-items: center; font-size: 2rem; color: white; flex-shrink: 0;
+        }
+        .price-info { flex: 1; padding: 0 20px; }
+        .price-info h3 { font-size: 1.4rem; color: var(--text-dark); margin-bottom: 5px; }
+        .price-info p { color: var(--text-gray); font-size: 0.95rem; font-weight: 500; }
+        .price-amount { text-align: right; }
+        .price-amount h2 { font-size: 2rem; font-weight: 800; color: var(--text-dark); line-height: 1; }
+        .price-amount span { font-size: 0.9rem; color: var(--text-gray); }
+        .price-speed {
+            display: inline-block; margin-top: 5px; background: var(--primary-blue); color: white;
+            padding: 5px 15px; border-radius: 30px; font-weight: 700; font-size: 1.1rem;
+        }
+
+        .hemat .price-icon-box { background: var(--pkg-hemat); } .hemat:hover { border-color: #4ade80; }
+        .silver .price-icon-box { background: var(--pkg-silver); } .silver:hover { border-color: #60a5fa; }
+        .gold .price-icon-box { background: var(--pkg-gold); } .gold:hover { border-color: #facc15; }
+        .smart .price-icon-box { background: var(--pkg-smart); } .smart:hover { border-color: #fb923c; }
+        .super .price-icon-box { background: var(--pkg-super); } .super:hover { border-color: #c084fc; }
+
+        /* --- FORMS & CONTACT --- */
+        .contact-grid, .tentang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-blue); font-size: 0.95rem; }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%; padding: 12px 15px; border-radius: 12px; border: 2px solid #cbd5e1; background: #f8fafc; font-size: 0.95rem; transition: border 0.3s;
+        }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus { outline: none; border-color: var(--primary-blue); }
+
+        /* ========================================= */
+        /* FOOTER SEKALIGUS TEKS BERJALAN            */
+        /* ========================================= */
+        footer { 
+            background: var(--primary-blue); 
+            color: white; 
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .footer-icon {
+            background: var(--white);
+            color: var(--primary-blue);
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+        
+        .footer-marquee {
+            flex: 1;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            padding-top: 2px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .brand-name { font-size: 1.3rem; }
+            .menu-toggle { display: block; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 80%; height: 100vh; background: white;
+                flex-direction: column; justify-content: center; box-shadow: -5px 0 20px rgba(0,0,0,0.1); transition: 0.3s;
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.1rem; }
+            
+            .hero-layout { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2rem; }
+            .features-grid { grid-template-columns: 1fr; text-align: left; }
+            .hero-image { padding: 0 20px; }
+
+            .price-row { flex-direction: column; text-align: center; gap: 15px; }
+            .price-info { padding: 10px 0; } .price-amount { text-align: center; }
+            .contact-grid, .tentang-grid { grid-template-columns: 1fr; }
+            .section-header h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="promoModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="tutupModal()"><i class="fa-solid fa-xmark"></i></span>
+            <img src="famlet.jpeg" alt="Pamflet Damaris Net" onerror="this.src='https://via.placeholder.com/600x800?text=Pamflet+Damaris+Net';">
+        </div>
+    </div>
+
+    <header>
+        <div class="container nav-wrapper">
+            <div class="brand" onclick="navigate('home')">
+                <i class="fa-solid fa-wifi logo-icon"></i>
+                <div class="brand-name"><span class="damaris">Damaris</span><span class="net">Net</span></div>
+                <div class="brand-tagline">unlimited connections</div>
+            </div>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links" id="navMenu">
+                <li><a class="nav-item active" onclick="navigate('home', this)">Beranda</a></li>
+                <li><a class="nav-item" onclick="navigate('pricing', this)">Harga Paket</a></li>
+                <li><a class="nav-item" onclick="navigate('about', this)">Tentang Kami</a></li>
+                <li><a class="nav-item" onclick="navigate('contact', this)">Kontak</a></li>
+                <li><button class="btn-action" onclick="navigate('register', this)">Berlangganan</button></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="home" class="slide active">
+
+            <div class="hero-layout">
+                <div class="hero-text">
+                    <h1>Internet Cepat & Stabil Untuk <span>Rumah Anda!</span></h1>
+                    <p>Kini hadir untuk membantu mengatasi kesulitan Anda. Solusi internet cerdas tanpa batas untuk menunjang aktivitas streaming, gaming, dan belajar online keluarga.</p>
+                    
+                    <div class="features-grid">
+                        <div class="feat-item"><i class="fa-solid fa-infinity"></i> Unlimited Tanpa Kuota</div>
+                        <div class="feat-item"><i class="fa-solid fa-headset"></i> Layanan CS 24/7</div>
+                        <div class="feat-item"><i class="fa-solid fa-bolt"></i> Instalasi Cepat</div>
+                        <div class="feat-item"><i class="fa-solid fa-router"></i> Router Wi-Fi Modern</div>
+                    </div>
+
+                    <button class="btn-action" style="font-size: 1rem; padding: 12px 30px; background: var(--primary-blue);" onclick="navigate('pricing', document.querySelectorAll('.nav-item')[1])">
+                        Lihat Pilihan Paket
+                    </button>
+                </div>
+
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Koneksi Internet Damaris Net">
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="slide">
+            <div class="section-header">
+                <h2>Pilihan Paket Internet</h2>
+                <p>Pilih kecepatan yang sesuai dengan kebutuhan keluarga Anda.</p>
+            </div>
+            
+            <div class="pricing-list">
+                <div class="price-row hemat" onclick="navigate('register')">
+                    <div class="price-icon-box"><i class="fa-solid fa-rocket"></i></div>
+                    <div class="price-info">
+                        <h3>Paket Hemat</h3>
+                        <p>Streaming & Browsing Ringan</p>
+                    </div>
+                    <div class="price-amount">
+                        <h2>Rp 150.000<span>/bulan</span></h2>
+                        <div class="price-speed">5 Mbps</div>
+                    </div>
+                </div>
+
+                <div class="price-row silver" onclick="navigate('register')">
+                    <div class="price-icon-box"><i class="fa-solid fa-rocket"></i></div>
+                    <div class="price-info">
+                        <h3>Paket Silver</h3>
+                        <p>Cocok untuk WFH & Belajar Online</p>
+                    </div>
+                    <div class="price-amount">
+                        <h2>Rp 175.000<span>/bulan</span></h2>
+                        <div class="price-speed">7 Mbps</div>
+                    </div>
+                </div>
+
+                <div class="price-row gold" onclick="navigate('register')">
+                    <div class="price-icon-box"><i class="fa-solid fa-rocket"></i></div>
+                    <div class="price-info">
+                        <h3>Paket Gold</h3>
+                        <p>Gaming & Video Call Lancar</p>
+                    </div>
+                    <div class="price-amount">
+                        <h2>Rp 200.000<span>/bulan</span></h2>
+                        <div class="price-speed">10 Mbps</div>
+                    </div>
+                </div>
+
+                <div class="price-row smart" onclick="navigate('register')">
+                    <div class="price-icon-box"><i class="fa-solid fa-rocket"></i></div>
+                    <div class="price-info">
+                        <h3>Paket Smart</h3>
+                        <p>Untuk Banyak Perangkat</p>
+                    </div>
+                    <div class="price-amount">
+                        <h2>Rp 250.000<span>/bulan</span></h2>
+                        <div class="price-speed">15 Mbps</div>
+                    </div>
+                </div>
+
+                <div class="price-row super" onclick="navigate('register')">
+                    <div class="price-icon-box"><i class="fa-solid fa-rocket"></i></div>
+                    <div class="price-info">
+                        <h3>Paket Super</h3>
+                        <p>Streaming 4K & Download Super Cepat</p>
+                    </div>
+                    <div class="price-amount">
+                        <h2>Rp 350.000<span>/bulan</span></h2>
+                        <div class="price-speed">30 Mbps</div>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 20px; color: var(--text-gray);">*Klik pada paket untuk langsung mengisi formulir pendaftaran.</p>
+        </section>
+
+        <section id="about" class="slide">
+            <div class="section-header">
+                <h2>Kenapa Damaris Net?</h2>
+                <p>Komitmen kami memberikan pelayanan terbaik.</p>
+            </div>
+            <div class="card-box tentang-grid">
+                <div>
+                    <h3 style="color: var(--primary-blue); font-size: 1.6rem; margin-bottom: 15px;">Keluarga Terhubung Sempurna</h3>
+                    <p style="color: var(--text-gray); line-height: 1.8; margin-bottom: 15px;">Damaris Net hadir untuk memastikan setiap sudut rumah Anda mendapatkan koneksi internet fiber optic yang stabil dan cepat. Kami percaya internet adalah jendela dunia untuk anak-anak belajar, dan sarana hiburan terbaik bagi keluarga.</p>
+                    <p style="color: var(--text-gray); line-height: 1.8;">Dengan dukungan tim teknisi lokal yang sigap, kami menjamin penyelesaian masalah dengan cepat agar Anda tidak pernah terputus dari hal-hal penting.</p>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Keluarga Damaris Net" style="width: 100%; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+        </section>
+
+        <section id="register" class="slide">
+            <div class="section-header">
+                <h2>Formulir Pendaftaran</h2>
+                <p>Isi data diri Anda, teknisi kami akan segera merespon.</p>
+            </div>
+            <div class="card-box" style="max-width: 700px; margin: 0 auto;">
+                <form onsubmit="kirimWA(event)">
+                    <div class="input-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
+                    </div>
+                    <div class="input-group">
+                        <label>No. WhatsApp / HP</label>
+                        <input type="tel" id="wa" placeholder="Contoh: 08123456789" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Pilih Paket Internet</label>
+                        <select id="paket" required>
+                            <option value="" disabled selected>-- Pilih Paket --</option>
+                            <option value="Paket Hemat (5Mbps - 150K)">Paket Hemat (5 Mbps) - Rp 150.000</option>
+                            <option value="Paket Silver (7Mbps - 175K)">Paket Silver (7 Mbps) - Rp 175.000</option>
+                            <option value="Paket Gold (10Mbps - 200K)">Paket Gold (10 Mbps) - Rp 200.000</option>
+                            <option value="Paket Smart (15Mbps - 250K)">Paket Smart (15 Mbps) - Rp 250.000</option>
+                            <option value="Paket Super (30Mbps - 350K)">Paket Super (30 Mbps) - Rp 350.000</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Alamat Pemasangan Lengkap</label>
+                        <textarea id="alamat" rows="4" placeholder="Sertakan Patokan Rumah / RT RW..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-action" style="width: 100%; font-size: 1rem; padding: 12px; display: flex; justify-content: center; gap: 10px; background: var(--primary-blue);">
+                        <i class="fa-brands fa-whatsapp"></i> Kirim Pesan via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section id="contact" class="slide">
+            <div class="section-header">
+                <h2>Hubungi Kami</h2>
+                <p>Layanan pelanggan Damaris Net siap membantu Anda 24/7.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="card-box" style="text-align: center;">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 4rem; color: #16a34a; margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 10px;">WhatsApp CS Pusat</h3>
+                    <h2 style="color: var(--primary-blue); font-size: 1.8rem;">0851-7326-6083</h2>
+                    <p style="color: var(--text-gray); margin-top: 10px;">Silakan chat atau telepon untuk pertanyaan seputar pemasangan dan keluhan jaringan.</p>
+                </div>
+                <div class="card-box" style="text-align: center;">
+                    <i class="fa-solid fa-map-location-dot" style="font-size: 4rem; color: #e11d48; margin-bottom: 20px;"></i>
+                    <h3 style="margin-bottom: 10px;">Lokasi Operasional</h3>
+                    <p style="color: var(--text-gray); line-height: 1.6;">Melayani seluruh area tercover jaringan Fiber Optic Damaris Net. Pastikan lokasi Anda masuk dalam jangkauan teknisi kami.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-icon"><i class="fa-solid fa-bullhorn"></i></div>
+        <marquee class="footer-marquee" scrollamount="7">
+            🌟 PROMO SPESIAL DAMARIS NET! Hubungi kami segera untuk mendapatkan penawaran pemasangan WiFi terbaik di Cianjur. Internet Cepat, Stabil, dan 100% Tanpa Kuota (Unlimited). Solusi tepat untuk UMKM, Streamer, dan Rumah Tangga! 🌟
+        </marquee>
+    </footer>
+
+    <script>
+        // SCRIPT POP-UP PAMFLET
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('promoModal').classList.add('show');
+            }, 500); 
+        });
+
+        function tutupModal() {
+            document.getElementById('promoModal').classList.remove('show');
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('promoModal');
+            if (event.target == modal) { tutupModal(); }
+        }
+
+        // SCRIPT MENU & NAVIGASI
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const icon = document.querySelector('.menu-toggle i');
+            menu.classList.toggle('active');
+            
+            if(menu.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        }
+
+        function navigate(targetId, navElement) {
+            document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
+            document.getElementById(targetId).classList.add('active');
+
+            if(navElement && navElement.classList.contains('nav-item')) {
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                navElement.classList.add('active');
+            }
+
+            const menu = document.getElementById('navMenu');
+            if(menu.classList.contains('active')) toggleMenu();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function kirimWA(e) {
+            e.preventDefault();
+            const nama = document.getElementById('nama').value;
+            const wa = document.getElementById('wa').value;
+            const paket = document.getElementById('paket').value;
+            const alamat = document.getElementById('alamat').value;
+            
+            const adminPhone = "6285173266083";
+            const text = `*PENDAFTARAN DAMARIS NET*%0A%0A` +
+                         `Halo Admin, saya ingin berlangganan internet rumah:%0A%0A` +
+                         `👤 *Nama:* ${nama}%0A` +
+                         `📱 *No. WA:* ${wa}%0A` +
+                         `🚀 *Paket Pilihan:* ${paket}%0A` +
+                         `🏠 *Alamat:* ${alamat}%0A%0A` +
+                         `Mohon info pemasangannya. Terima kasih!`;
+                         
+            window.open(`https://wa.me/${adminPhone}?text=${text}`, "_blank");
+        }
+    </script>
+</body>
+</html>

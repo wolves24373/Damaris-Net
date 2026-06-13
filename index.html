@@ -95,7 +95,7 @@
         .menu-toggle { display: none; font-size: 1.5rem; color: var(--primary-blue); cursor: pointer; z-index: 1002; }
 
         /* --- HALAMAN (SLIDES) --- */
-        main { padding-top: 140px; flex: 1; padding-bottom: 50px; } 
+        main { padding-top: 100px; flex: 1; padding-bottom: 50px; } 
         .slide { display: none; animation: fadeIn 0.5s ease; }
         .slide.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -111,7 +111,7 @@
             grid-template-columns: 1.1fr 0.9fr; 
             gap: 40px; 
             align-items: center; 
-            margin-top: 70px; 
+            margin-top: 20px; 
         }
         .hero-text h1 { font-size: 2.8rem; font-weight: 800; color: var(--primary-blue); line-height: 1.2; margin-bottom: 15px; }
         .hero-text h1 span { color: var(--red-net); }
@@ -120,6 +120,7 @@
         .feat-item { background: var(--white); padding: 12px 15px; border-radius: 12px; font-weight: 600; font-size: 0.85rem; color: var(--text-dark); box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary-blue); }
         .feat-item i { color: #16a34a; font-size: 1.1rem; }
         
+        /* GAMBAR BERANDA (95% Untuk Laptop) */
         .hero-image { position: relative; margin-bottom: 20px; text-align: center; }
         .hero-image img { width: 95%; margin: 0 auto; display: block; border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.15); animation: float 6s ease-in-out infinite; }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
@@ -166,8 +167,8 @@
         /* RESPONSIVE KHUSUS MOBILE (HP)             */
         /* ========================================= */
         @media (max-width: 768px) {
-            /* PERBAIKAN HP MAKSIMAL: Padding dinaikkan drastis jadi 250px! */
-            main { padding-top: 250px !important; } 
+            /* PERBAIKAN: Padding diatur presisi agar pas di bawah header tanpa ruang kosong berlebih */
+            main { padding-top: 85px !important; } 
 
             .brand-name { font-size: 1.3rem; }
             .menu-toggle { display: block; }
@@ -175,10 +176,10 @@
             .nav-links.active { right: 0; }
             .nav-links a { font-size: 1.1rem; }
             
-            /* PERBAIKAN HP MAKSIMAL: Margin Beranda diturunkan ekstra jauh (80px) */
-            .hero-layout { grid-template-columns: 1fr; text-align: center; gap: 20px; margin-top: 80px !important; }
+            /* Jarak Beranda untuk HP di-reset ke normal */
+            .hero-layout { grid-template-columns: 1fr; text-align: center; gap: 20px; margin-top: 15px !important; }
             
-            .hero-text h1 { font-size: 1.9rem; line-height: 1.4; } 
+            .hero-text h1 { font-size: 2.1rem; line-height: 1.4; } 
             .features-grid { grid-template-columns: 1fr; text-align: left; margin-top: 25px; }
             
             /* Foto HP */

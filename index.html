@@ -95,8 +95,7 @@
         .menu-toggle { display: none; font-size: 1.5rem; color: var(--primary-blue); cursor: pointer; z-index: 1002; }
 
         /* --- HALAMAN (SLIDES) --- */
-        /* PERBAIKAN: Padding top saya perbesar lagi agar semua halaman aman dari header */
-        main { padding-top: 180px; flex: 1; padding-bottom: 50px; } 
+        main { padding-top: 140px; flex: 1; padding-bottom: 50px; } 
         .slide { display: none; animation: fadeIn 0.5s ease; }
         .slide.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -107,13 +106,12 @@
         .card-box { background: var(--white); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px var(--shadow); }
 
         /* --- BERANDA (HOME) --- */
-        /* PERBAIKAN: Margin-top saya lipat gandakan agar posisi Beranda turun secara signifikan */
         .hero-layout { 
             display: grid; 
             grid-template-columns: 1.1fr 0.9fr; 
             gap: 40px; 
             align-items: center; 
-            margin-top: 110px; /* Jarak ekstra ke bawah */
+            margin-top: 70px; 
         }
         .hero-text h1 { font-size: 2.8rem; font-weight: 800; color: var(--primary-blue); line-height: 1.2; margin-bottom: 15px; }
         .hero-text h1 span { color: var(--red-net); }
@@ -122,7 +120,6 @@
         .feat-item { background: var(--white); padding: 12px 15px; border-radius: 12px; font-weight: 600; font-size: 0.85rem; color: var(--text-dark); box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary-blue); }
         .feat-item i { color: #16a34a; font-size: 1.1rem; }
         
-        /* GAMBAR BERANDA (95% Untuk Laptop) */
         .hero-image { position: relative; margin-bottom: 20px; text-align: center; }
         .hero-image img { width: 95%; margin: 0 auto; display: block; border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.15); animation: float 6s ease-in-out infinite; }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
@@ -169,7 +166,8 @@
         /* RESPONSIVE KHUSUS MOBILE (HP)             */
         /* ========================================= */
         @media (max-width: 768px) {
-            main { padding-top: 150px; } 
+            /* PERBAIKAN HP: Padding dinaikkan drastis jadi 200px agar aman dari tumpukan header */
+            main { padding-top: 200px; } 
 
             .brand-name { font-size: 1.3rem; }
             .menu-toggle { display: block; }
@@ -177,8 +175,8 @@
             .nav-links.active { right: 0; }
             .nav-links a { font-size: 1.1rem; }
             
-            /* Jarak Beranda untuk HP */
-            .hero-layout { grid-template-columns: 1fr; text-align: center; gap: 20px; margin-top: 40px; }
+            /* PERBAIKAN HP: Margin Beranda diturunkan ekstra jauh (60px) */
+            .hero-layout { grid-template-columns: 1fr; text-align: center; gap: 20px; margin-top: 60px; }
             
             .hero-text h1 { font-size: 1.9rem; line-height: 1.4; } 
             .features-grid { grid-template-columns: 1fr; text-align: left; margin-top: 25px; }
